@@ -3,8 +3,20 @@ extends CharacterBody2D
 var walk_speed = 100
 var direction = "none"
 
+@onready var camera_2d: Camera2D = $Camera2D
+
 func _physics_process(delta: float) -> void:
 	player_movement(delta)
+	camera_zoom(delta)
+
+func camera_zoom(delta: float) -> void:
+	if Input.is_action_just_pressed("zoom_in"):
+		var zoom_value = camera_2d.zoom.x - 0.1
+		camera_2d.zoom = Vector2(zoom_value, zoom_value)
+	
+	if Input.is_action_just_pressed("zoom_out"):
+		var zoom_value = camera_2d.zoom.x + 0.1
+		camera_2d.zoom = Vector2(zoom_value, zoom_value)
 
 func player_movement(delta: float) -> void:
 	
